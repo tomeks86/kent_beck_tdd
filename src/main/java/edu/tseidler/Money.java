@@ -2,15 +2,25 @@ package edu.tseidler;
 
 abstract public class Money {
     protected int amount;
+    protected String currency;
+
+    String currency() {
+        return currency;
+    }
 
     abstract Money times(int multiplier);
 
-    static Dollar dolar(int amount) {
-        return new Dollar(amount);
+    Money(int amount, String currency) {
+        this.amount = amount;
+        this.currency = currency;
     }
 
-    static Franc franc(int amount) {
-        return new Franc(amount);
+    static Money dolar(int amount) {
+        return new Dollar(amount, "USD");
+    }
+
+    static Money franc(int amount) {
+        return new Franc(amount, "CHF");
     }
 
     @Override
