@@ -6,9 +6,4 @@ public class Dollar extends Money {
         super(amount, currency);
     }
 
-    @Override
-    String currency() {
-        return currency;
-    }
-
 }
