@@ -1,7 +1,17 @@
 package edu.tseidler;
 
-public class Money {
+abstract public class Money {
     protected int amount;
+
+    abstract Money times(int multiplier);
+
+    static Dollar dolar(int amount) {
+        return new Dollar(amount);
+    }
+
+    static Franc franc(int amount) {
+        return new Franc(amount);
+    }
 
     @Override
     public boolean equals(Object object) {
