@@ -2,40 +2,47 @@ package edu.tseidler;
 
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class MoneyTest {
 
     @Test
     public void testMultiplication() {
         Money five = Money.dolar(5);
-        assertEquals(Money.dolar(10), five.times(2));
-        assertEquals(Money.dolar(15), five.times(3));
+
+        SoftAssert sa = new SoftAssert();
+        sa.add(Money.dolar(10).equals(five.times(2)));
+        sa.add(Money.dolar(15).equals(five.times(3)));
+        sa.run();
     }
 
     @Test
     public void testEquality() {
-        assertTrue(Money.dolar(5).equals(Money.dolar(5)));
-        assertFalse(Money.dolar(5).equals(Money.dolar(6)));
-        assertTrue(Money.franc(5).equals(Money.franc(5)));
-        assertFalse(Money.franc(5).equals(Money.franc(6)));
-        assertFalse(Money.franc(5).equals(Money.dolar(5)));
+        SoftAssert sa = new SoftAssert();
+        sa.add(!Money.dolar(7).equals(Money.dolar(5)));
+        sa.add(!Money.dolar(5).equals(Money.dolar(6)));
+        sa.add(Money.franc(5).equals(Money.franc(5)));
+        sa.add(!Money.franc(5).equals(Money.franc(6)));
+        sa.add(!Money.franc(5).equals(Money.dolar(5)));
+        sa.run();
     }
 
     @Test
     public void testFrancMultiplication() {
         Money five = Money.franc(5);
-        assertEquals(Money.franc(10), five.times(2));
-        assertEquals(Money.franc(15), five.times(3));
+
+        SoftAssert sa = new SoftAssert();
+        sa.add(Money.franc(10).equals(five.times(2)));
+        sa.add(Money.franc(15).equals(five.times(3)));
+        sa.run();
     }
 
     @Test
     public void testCurrency() {
-        assertEquals("USD", Money.dolar(1).currency());
-        assertEquals("CHF", Money.franc(1).currency());
+        SoftAssert sa = new SoftAssert();
+        sa.add("USD".equals(Money.dolar(1).currency()));
+        sa.add("CHF".equals(Money.franc(1).currency()));
+        sa.run();
     }
 
     @Test
@@ -52,8 +59,11 @@ public class MoneyTest {
         Money five = Money.dolar(5);
         Expression result = five.plus(five);
         Sum sum = (Sum) result;
-        assertEquals(five, sum.augend);
-        assertEquals(five, sum.addend);
+
+        SoftAssert sa = new SoftAssert();
+        sa.add(five.equals(sum.augend));
+        sa.add(five.equals(sum.addend));
+        sa.run();
     }
 
     @Test
